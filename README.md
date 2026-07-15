@@ -1,8 +1,10 @@
 # AppSupportUI
 
-Local SwiftUI **Settings → Support** section shared by iOS and iPadOS apps.
+Reusable SwiftUI **Settings → Support** section for iOS and iPadOS apps.
 
 Drop it into any `Form` / `List`, inject app-specific email, privacy URL, App Store ID, and theme colors.
+
+Current release: **2026.07.16**
 
 ## Requirements
 
@@ -11,18 +13,24 @@ Drop it into any `Form` / `List`, inject app-specific email, privacy URL, App St
 
 ## Install
 
-In Xcode: **File → Add Package Dependencies… → Add Local…** → select this folder.
+In Xcode, choose **File → Add Package Dependencies…** and enter:
 
-Or in another package’s `Package.swift`:
+```text
+https://github.com/iPocket-APP/AppSupportUI.git
+```
+
+Or add the dependency to another package’s `Package.swift`:
 
 ```swift
-.package(path: "../AppSupportUI")
+.package(
+    url: "https://github.com/iPocket-APP/AppSupportUI.git",
+    from: "2026.7.16"
+)
 ```
 
 Then add the `AppSupportUI` product to your app target.
 
-This package is currently maintained as a local dependency. Public Git distribution,
-semantic versioning, and licensing are intentionally outside its current scope.
+For local development, use `.package(path: "../AppSupportUI")` instead.
 
 ## Usage
 
@@ -123,3 +131,7 @@ swift test -Xswiftc -target -Xswiftc "$(uname -m)-apple-macosx14.0"
 
 The release gate is an iOS generic-destination build using Swift 6, complete strict
 concurrency checking, and warnings as errors.
+
+## License
+
+AppSupportUI is available under the [MIT License](LICENSE).
