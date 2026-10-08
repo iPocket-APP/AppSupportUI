@@ -6,20 +6,22 @@ let package = Package(
     defaultLocalization: "en",
     platforms: [
         .iOS(.v17),
+        .macOS(.v13),
     ],
     products: [
+        .library(name: "AppSupportCore", targets: ["AppSupportCore"]),
         .library(
             name: "AppSupportUI",
             targets: ["AppSupportUI"]
         ),
     ],
     targets: [
+        .target(name: "AppSupportCore", resources: [.process("Resources")]),
         .target(
             name: "AppSupportUI",
-            resources: [
-                .process("Resources"),
-            ]
+            dependencies: ["AppSupportCore"]
         ),
+        .testTarget(name: "AppSupportCoreTests", dependencies: ["AppSupportCore"]),
         .testTarget(
             name: "AppSupportUITests",
             dependencies: ["AppSupportUI"]

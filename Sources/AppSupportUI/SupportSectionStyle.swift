@@ -1,6 +1,7 @@
-import SwiftUI
+public import SwiftUI
+public import AppSupportCore
 
-/// Colors and SF Symbols for built-in support rows.
+/// Shared colors and sizing for the built-in support rows.
 public struct SupportSectionStyle: Sendable {
     public var versionTint: Color
     public var rateTint: Color
@@ -9,12 +10,8 @@ public struct SupportSectionStyle: Sendable {
     public var termsTint: Color
     public var websiteTint: Color
 
-    public var versionSystemImage: String
-    public var rateSystemImage: String
-    public var contactSystemImage: String
-    public var privacySystemImage: String
-    public var termsSystemImage: String
-    public var websiteSystemImage: String
+    public var iconWidth: CGFloat
+    public var minimumRowHeight: CGFloat
 
     public init(
         versionTint: Color = .accentColor,
@@ -23,12 +20,8 @@ public struct SupportSectionStyle: Sendable {
         privacyTint: Color = .green,
         termsTint: Color = .blue,
         websiteTint: Color = .indigo,
-        versionSystemImage: String = "info.circle.fill",
-        rateSystemImage: String = "star.fill",
-        contactSystemImage: String = "envelope.fill",
-        privacySystemImage: String = "hand.raised.fill",
-        termsSystemImage: String = "doc.text.fill",
-        websiteSystemImage: String = "globe"
+        iconWidth: CGFloat = 24,
+        minimumRowHeight: CGFloat = SupportRowStyle.defaultMinimumHeight
     ) {
         self.versionTint = versionTint
         self.rateTint = rateTint
@@ -36,11 +29,20 @@ public struct SupportSectionStyle: Sendable {
         self.privacyTint = privacyTint
         self.termsTint = termsTint
         self.websiteTint = websiteTint
-        self.versionSystemImage = versionSystemImage
-        self.rateSystemImage = rateSystemImage
-        self.contactSystemImage = contactSystemImage
-        self.privacySystemImage = privacySystemImage
-        self.termsSystemImage = termsSystemImage
-        self.websiteSystemImage = websiteSystemImage
+        self.iconWidth = iconWidth
+        self.minimumRowHeight = minimumRowHeight
+    }
+
+    public func rowStyle(for row: SupportRowKind) -> SupportRowStyle {
+        let tint: Color
+        switch row {
+        case .version: tint = versionTint
+        case .rate: tint = rateTint
+        case .contactEmail, .contactWebsite: tint = contactTint
+        case .privacy: tint = privacyTint
+        case .terms: tint = termsTint
+        case .website: tint = websiteTint
+        }
+        return SupportRowStyle(tint: tint, iconWidth: iconWidth, minimumHeight: minimumRowHeight)
     }
 }
